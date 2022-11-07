@@ -73,4 +73,5 @@ App.protoType = {
   positivePercentage: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
+  message: PropTypes.string,
 };
