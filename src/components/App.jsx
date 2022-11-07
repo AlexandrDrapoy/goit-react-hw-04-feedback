@@ -67,8 +67,10 @@ export class App extends Component {
 App.protoType = {
   options: PropTypes.oneOf(['good', 'neutral', 'bad']),
 
-  good: PropTypes.string,
-  neutral: PropTypes.string,
-  bad: PropTypes.string,
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
   positivePercentage: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
 };
