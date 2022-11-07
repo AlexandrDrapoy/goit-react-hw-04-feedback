@@ -2,8 +2,9 @@ import { Component } from 'react';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Section } from './Section/Section';
 import { Statistics } from './Statistics/Statistics';
+import { Notification } from './Notification/Notification';
 // import Statistics from './Statistics/Statistics';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 const options = {
   good: 'good',
   neutral: 'neutral',
@@ -20,6 +21,7 @@ export class App extends Component {
 
   // }
   onLeaveFeedback = option => () => {
+    this.setState({ isFeedback: true });
     this.setState({
       [option]: this.state[option] + 1,
     });
@@ -45,15 +47,28 @@ export class App extends Component {
         </Section>
 
         <Section title="Statistics">
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={this.countTotalFeedback()}
-            positivePercentage={this.countPositiveFeedbackPercentage()}
-          ></Statistics>
+          {!this.state.isFeedback ? (
+            <Notification message="There is no feedback" />
+          ) : (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          )}
         </Section>
       </div>
     );
   }
 }
+
+App.protoType = {
+  options: PropTypes.oneOf(['good', 'neutral', 'bad']),
+
+  good: PropTypes.string,
+  neutral: PropTypes.string,
+  bad: PropTypes.string,
+  positivePercentage: PropTypes.number.isRequired,
+};
