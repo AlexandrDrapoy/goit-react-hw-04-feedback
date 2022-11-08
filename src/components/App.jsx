@@ -15,13 +15,11 @@ export class App extends Component {
     good: 0,
     neutral: 0,
     bad: 0,
-    isFeedback: false,
   };
   // static PropTypes ={
 
   // }
   onLeaveFeedback = option => () => {
-    this.setState({ isFeedback: true });
     this.setState({
       [option]: this.state[option] + 1,
     });
@@ -36,6 +34,7 @@ export class App extends Component {
   }
 
   render() {
+    const total = this.countTotalFeedback();
     const { good, neutral, bad } = this.state;
     return (
       <div>
@@ -47,14 +46,14 @@ export class App extends Component {
         </Section>
 
         <Section title="Statistics">
-          {!this.state.isFeedback ? (
+          {!total ? (
             <Notification message="There is no feedback" />
           ) : (
             <Statistics
               good={good}
               neutral={neutral}
               bad={bad}
-              total={this.countTotalFeedback()}
+              total={total}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           )}
