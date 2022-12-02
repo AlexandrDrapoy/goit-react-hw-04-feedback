@@ -3,13 +3,15 @@ import { Section } from './Section/Section';
 import { Statistics } from './Statistics/Statistics';
 import { Notification } from './Notification/Notification';
 // import Statistics from './Statistics/Statistics';
-import PropTypes from 'prop-types';
+
 import { useState } from 'react';
 
 export const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
+
+  const options = ['good', 'neutral', 'bad'];
 
   const onLeaveFeedback = options => () => {
     switch (options) {
@@ -36,7 +38,10 @@ export const App = () => {
   return (
     <div>
       <Section title="Pleese leave feadback">
-        <FeedbackOptions onLeaveFeedback={onLeaveFeedback}></FeedbackOptions>
+        <FeedbackOptions
+          onLeaveFeedback={onLeaveFeedback}
+          options={options}
+        ></FeedbackOptions>
       </Section>
 
       <Section title="Statistics">
@@ -54,16 +59,4 @@ export const App = () => {
       </Section>
     </div>
   );
-};
-
-App.protoType = {
-  options: PropTypes.oneOf(['good', 'neutral', 'bad']),
-
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
-  positivePercentage: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  message: PropTypes.string,
 };
